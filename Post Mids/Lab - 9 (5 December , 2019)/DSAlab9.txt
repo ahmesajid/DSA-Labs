@@ -1,0 +1,365 @@
+#include<iostream>
+#include<string>
+using namespace std;
+#define COUNT 10
+
+template <class T>
+class Stack {
+	T*arr;
+	int size;
+	int top;
+
+public:
+	Stack(int size = 0)
+	{
+		this->size = size;
+		arr = new T[size];
+		top = -1;
+	}
+	Stack(const Stack&S)
+	{
+		if (size >= S.size)
+		{
+			for (int i = 0; i < S.size; i++)
+			{
+				arr[i] = S.arr[i];
+			}
+			cout << "Data copied sucessfully!\n";
+		}
+		else
+		{
+			cout << "Stack size not compatible!\n";
+		}
+	}
+
+	void push(T element)
+	{
+		if (!isFull())
+		{
+			arr[++top] = element;
+		}
+		else
+		{
+			cout << "Stack is full!\n";
+		}
+	}
+
+	T pop()
+	{
+		if (!isEmpty())
+		{
+			return arr[top--];
+		}
+		return 0;
+	}
+
+	T getTop()
+	{
+		if (!isEmpty())
+		{
+			return arr[top];
+		}
+		return 0;
+	}
+
+	bool isFull()
+	{
+		return size == top + 1;
+	}
+
+	bool isEmpty()
+	{
+		return top == -1;
+	}
+
+	~Stack()
+	{
+		if (!isEmpty())
+		{
+			delete[] arr;
+			arr = nullptr;
+			top = -1;
+			size = 0;
+		}
+	}
+	int getSize()
+	{
+		return size;
+	}
+};
+struct TreeNode
+{
+	int data;
+	TreeNode*left;
+	TreeNode*right;
+
+	TreeNode(int data)
+	{
+		this->data = data;
+		left = right = NULL;
+	}
+};
+class Tree
+{
+	TreeNode*root;
+public:
+	void setRoot(TreeNode*t)
+	{
+		root = t;
+	}
+	void setLeftChild(TreeNode*t, int val)
+	{
+		if (t != NULL)
+		{
+			t->left = new TreeNode(val);
+		}
+		else
+		{
+			cout << "Parent node does not exist\n";
+		}
+	}
+	void setRightChild(TreeNode*t, int val)
+	{
+		if (t != NULL)
+		{
+			t->right = new TreeNode(val);
+		}
+		else
+		{
+			cout << "Parent node does not exist\n";
+		}
+	}
+	TreeNode*getLeftChild(TreeNode*t)
+	{
+		return t->left;
+	}
+	TreeNode*getRightChild(TreeNode*t)
+	{
+		return t->right;
+	}
+	TreeNode*getRoot()
+	{
+		return root;
+	}
+	TreeNode*search(Tree*t, int val)
+	{
+		TreeNode*temp = t->getRoot();
+		while (temp != NULL)
+		{
+			if (val == temp->data)
+				return temp;
+			else if (val < temp->data)
+				temp = temp->left;
+			else
+				temp = temp->right;
+		}
+		return NULL;
+	}
+	void insert(Tree*T, int val)
+	{
+
+		TreeNode*tempPtr = T->getRoot();
+		TreeNode*newNode = new TreeNode(val);
+		TreeNode*p = NULL;
+
+		if (tempPtr == NULL)
+		{
+			T->setRoot(newNode);
+		}
+		else
+		{
+			while (tempPtr != NULL)
+			{
+				p = tempPtr;
+				if (tempPtr->data < val)
+				{
+					tempPtr = tempPtr->right;
+				}
+				else
+				{
+					tempPtr = tempPtr->left;
+				}
+			}
+			if (val <p->data)
+			{
+				p->left = newNode;
+			}
+			else
+			{
+				p->right = newNode;
+			}
+		}
+	}
+	void deleteNode(TreeNode*node)
+	{
+		//BASE CASE
+		if (node == NULL)
+			return;
+
+		TreeNode*toTraverse = root;
+		TreeNode*temp = NULL;
+		int nodeData = node->data;
+
+		while (toTraverse != NULL)
+		{
+			if (toTraverse == node) //NODE FOUND
+			{
+				if (toTraverse->left == toTraverse->right == NULL) //NODE HAS NO CHILD
+				{
+					delete toTraverse;
+					toTraverse = NULL;
+				}
+				else if (toTraverse->left == NULL || toTraverse->right == NULL) //A NODE HAS ONE SIDE NULL
+				{
+					if (toTraverse->left)
+					{
+						temp->left = toTraverse->left;
+					}
+					else
+					{
+
+					}
+				}
+				else //A NODE HAS CHILD ON BOTH SIDES
+				{
+
+				}
+			}
+			temp = toTraverse;
+			if (nodeData < toTraverse->data)
+				toTraverse = toTraverse->left;
+			else
+				toTraverse = toTraverse->right;
+		}
+};
+
+void preOrder(TreeNode*root)
+{
+	if (root == NULL)
+		return;
+	cout << root->data;
+	preOrder(root->left);
+	preOrder(root->right);
+}
+void postOrder(TreeNode*root)
+{
+	if (root != NULL)
+	{
+		postOrder(root->left);
+		postOrder(root->right);
+		cout << root->data << '\n';
+	}
+}
+void print2DUtil(TreeNode *root, int space)
+{
+	// Base case  
+	if (root == NULL)
+		return;
+
+	// Increase distance between levels  
+	space += COUNT;
+
+	// Process right child first  
+	print2DUtil(root->right, space);
+
+	// Print current node after space  
+	// count  
+	cout << endl;
+	for (int i = COUNT; i < space; i++)
+		cout << " ";
+	cout << root->data << "\n";
+
+	// Process left child  
+	print2DUtil(root->left, space);
+}
+void print2D(TreeNode *root)
+{
+	// Pass initial space count as 0  
+	print2DUtil(root, 0);
+}
+bool isOperator(char c)
+{
+	if (c == '+' || c == '-' ||
+		c == '*' || c == '/' ||
+		c == '^')
+		return true;
+	return false;
+}
+void inOrder(TreeNode*root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	inOrder(root->left);
+	cout << root->data<<' ';
+	inOrder(root->right);
+
+}
+void constructTree(char postfix[])
+{
+	Stack<TreeNode*> st(40);
+	TreeNode *T1, *T2, *T3;
+
+	for (int i = 0; i<strlen(postfix); i++)
+	{
+		if (!isOperator(postfix[i]))
+		{
+			T1 = new TreeNode(postfix[i]);
+			st.push(T1);
+		}
+		else // operator 
+		{
+			T1 = new TreeNode(postfix[i]);
+
+			T2 = st.getTop(); // Store top 
+			st.pop();      // Remove top 
+			T3 = st.getTop();
+			st.pop();
+
+			T1->right = T2;
+			T1->left = T3;
+
+			st.push(T1);
+		}
+	}
+
+	T1 = st.getTop();
+	st.pop();
+
+	preOrder(T1);
+	cout << '\n';
+	inOrder(T1);
+}
+
+int main()
+{
+
+	Tree*t = new Tree;
+	TreeNode*n1 = new TreeNode(4);
+	t->setRoot(n1);
+	t->insert(t, 5);
+	t->insert(t, 2);
+	t->insert(t, 9);
+	t->insert(t, 90);
+	t->insert(t, 43);
+	t->insert(t, 34);
+	t->insert(t, 4);
+
+	/*
+	TreeNode*check = search(t, 91);
+
+	if (check)
+	cout << "1";
+	else
+	cout << "0";
+	*/
+	inOrder(n1);
+
+	/*char postfix[] = "ab+ef*g*-";
+	constructTree(postfix);
+	*/
+
+	cout << '\n';
+	return 0;
+}

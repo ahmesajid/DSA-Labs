@@ -1,0 +1,3 @@
+﻿  Source.cpp
+c:\users\dell\desktop\linkedlists\linkedlists\source.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  LinkedLists.vcxproj -> C:\Users\dell\Desktop\LinkedLists\Debug\LinkedLists.exe

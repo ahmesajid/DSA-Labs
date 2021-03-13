@@ -1,0 +1,298 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class Student
+{
+	friend class StudentMinHeap;
+private:
+	string name;
+	double cgpa;
+	int rollNumber;
+	// Methods…
+	Student()
+	{
+		name = "";
+		cgpa = 0.0;
+		rollNumber = 0;
+	}
+	/*Student(string name, double cgpa, int rollNumber)
+	{
+	this->name = name;
+	this->cgpa = cgpa;
+	this->rollNumber = rollNumber;
+	}*/
+
+};
+class StudentMinHeap
+{
+	Student *arr; //Array of students which, arranged like a Max Heap
+	int curSize; //Current number of students present in the heap
+	int maxSize; //Maximum number of students that can be present in heap
+public:
+	StudentMinHeap(int size)//Constructor
+	{
+		arr = new Student[size];
+		curSize = -1;
+		maxSize = size;
+	}
+	bool isEmpty() //Checks whether the heap is empty or not
+	{
+		return curSize == 0;
+	}
+	bool isFull() //Checks whether the heap is full or not
+	{
+		return curSize + 1 == maxSize;
+	}
+	~StudentMinHeap() //Destructor
+	{
+		delete[]arr;
+		arr = nullptr;
+		maxSize = 0;
+		curSize = -1;
+	}
+	void swapTwoStudentsOnHeapIfSameCgpa(Student*S1, int index1, int index2)
+	{
+		//index 1 is of child , 2 is of parent
+		//cgpa is not swapped because it is same
+
+		if (S1[index1].rollNumber < S1[index2].rollNumber)
+		{
+			//swapping name
+			string tempName = S1[index1].name;
+			S1[index1].name = S1[index2].name;
+			S1[index2].name = tempName;
+
+			//swapping roll number
+			int tempRoll = S1[index1].rollNumber;
+			S1[index1].rollNumber = S1[index2].rollNumber;
+			S1[index2].rollNumber = tempRoll;
+		}
+	}
+	void swapTwoStudentsOnHeap(Student*S1, int index1, int index2)
+	{
+		//index 1 is of child , 2 is of parent
+
+		//swapping cgpa
+		double tempCgpa = S1[index1].cgpa;
+		S1[index1].cgpa = S1[index2].cgpa;
+		S1[index2].cgpa = tempCgpa;
+
+		//swapping name
+		string tempName = S1[index1].name;
+		S1[index1].name = S1[index2].name;
+		S1[index2].name = tempName;
+
+		//swapping roll number
+		int tempRoll = S1[index1].rollNumber;
+		S1[index1].rollNumber = S1[index2].rollNumber;
+		S1[index2].rollNumber = tempRoll;
+	}
+	bool insert(string name_, double cgpa_, int rollNumber_)
+	{
+		if (!isFull())
+		{
+			curSize++;
+			arr[curSize].name = name_;
+			arr[curSize].cgpa = cgpa_;
+			arr[curSize].rollNumber = rollNumber_;         //Element inserted 
+
+														   //Setting tree to Min Heap Tree if disturbed
+			int tempCurrentBackward = curSize;
+			while (true)
+			{
+				if ((tempCurrentBackward - 1) < 0) //loop breaks here
+					break;
+
+				int tempCurrentParent = (tempCurrentBackward - 1) / 2;
+				if (arr[tempCurrentBackward].cgpa < arr[tempCurrentParent].cgpa) // if child have less cgpa 
+				{
+					//If child is less then parent , swap them!
+					swapTwoStudentsOnHeap(arr, tempCurrentBackward, tempCurrentParent);
+					tempCurrentBackward = tempCurrentParent;
+				}
+				else if (arr[tempCurrentBackward].cgpa == arr[tempCurrentParent].cgpa) //if both parent and child have same cgpa
+				{
+					swapTwoStudentsOnHeapIfSameCgpa(arr, tempCurrentBackward, tempCurrentParent);
+					tempCurrentBackward = tempCurrentParent;
+				}
+				else
+				{
+					break;
+				}
+			}
+			return true;
+		}
+		cout << "Student Min Heap is full!*\n";
+		return false;
+	}
+	StudentMinHeap& operator = (StudentMinHeap &temp) //Overloaded assignment operator
+	{
+		for (int i = 0; i < curSize; i++)
+		{
+			this->arr[i].cgpa = temp.arr[i].cgpa;
+			this->arr[i].name = temp.arr[i].name;
+			this->arr[i].rollNumber = temp.arr[i].rollNumber;
+		}
+	}
+	void displayCredentials()
+	{
+		cout << arr[curSize].name << '\n';
+		cout << arr[curSize].cgpa << '\n';
+		cout << arr[curSize].rollNumber << '\n';
+		cout << '\n';
+	}
+	void printHeap()
+	{
+		cout << "*****Printing Heap*****\n";
+		int j = 1;
+		string endLine = "\n.........................................................................................\n\n";
+		for (int i = 0; i <= curSize; i++)
+		{
+			if (i == pow(2, j) - 1)
+			{
+				cout << '\n';
+				j++;
+			}
+			cout << arr[i].name << ' ';
+			cout << arr[i].rollNumber << ' ';
+			cout << arr[i].cgpa << ' ';
+		}
+		cout << "\n";
+		cout << endLine;
+
+	}
+	Student extractLeastCgpa()
+	{
+		//swapping currsize counter data with first min heap
+		swapTwoStudentsOnHeap(arr, 0, curSize);
+		//now currindex have the deleted data
+
+		int rootCounter = 0;
+		int leftChild = (2 * rootCounter) + 1;
+		int rightChild = (2 * rootCounter) + 2;
+		while (true)
+		{
+			if (leftChild == curSize || rightChild == curSize)
+				break;
+
+			//if cgpa is same , swap rollnumbers resulting least one to parent
+			if (arr[rootCounter].cgpa == arr[leftChild].cgpa)
+				swapTwoStudentsOnHeapIfSameCgpa(arr, leftChild, rootCounter);
+			if (arr[rootCounter].cgpa == arr[rightChild].cgpa)
+				swapTwoStudentsOnHeapIfSameCgpa(arr, rightChild, rootCounter);
+
+			if (arr[rootCounter].cgpa > arr[leftChild].cgpa)
+				swapTwoStudentsOnHeap(arr, rootCounter, leftChild);
+			if (arr[rootCounter].cgpa > arr[rightChild].cgpa)
+				swapTwoStudentsOnHeap(arr, rootCounter, rightChild);
+
+
+			rootCounter++;
+			leftChild = (2 * rootCounter) + 1;
+			rightChild = (2 * rootCounter) + 2;
+		}
+		curSize--;
+		return arr[curSize + 1];
+	}
+	void extraxtLeast()
+	{
+		Student S1 = extractLeastCgpa();
+		string endLine = "\n.........................................................................................\n\n";
+		cout << "*****Data Deleted***** :\n";
+		cout << S1.name << '\n';
+		cout << S1.rollNumber << '\n';
+		cout << S1.cgpa << "\n";
+		cout << endLine;
+	}
+	void displayStudentList()
+	{
+		//WRITE CODE HERE...
+		string*name = new string[curSize+1];
+		double*cgpa = new double[curSize+1];
+		int*rollNo = new int[curSize+1];
+
+	    for (int i=0; i <=curSize; i++)
+		{
+			name[i] = arr[i].name;
+			cgpa[i] = arr[i].cgpa;
+			rollNo[i] = arr[i].rollNumber;
+		}
+
+		//Sorting data 
+		sortStudentData(name, cgpa, rollNo);
+		displayList(name,cgpa,rollNo);
+	}
+	void displayList(string*name, double*cgpa, int*rollNo)
+	{
+		for (int i = 0; i <=curSize; i++)
+		{
+			cout << name[i]<<' ';
+			cout << cgpa[i] << ' ';
+			cout << rollNo[i] << ' ';
+		}
+	}
+	void sortStudentData(string*name, double*cgpa, int*rollNo)
+	{
+		string tempName;
+		double tempCgpa;
+		int tempRollNo;
+
+		for (int i = 0; i < curSize; i++)
+		{
+			for (int j = i+1; j <= curSize; j++)
+			{
+				if (cgpa[i] > cgpa[j])
+				{
+					tempName = name[i];
+					tempCgpa = cgpa[i];
+					tempRollNo = rollNo[i];
+
+					name[i] = name[j];
+					cgpa[i] = cgpa[j];
+					rollNo[i] = rollNo[j];
+
+					name[j] = tempName;
+					cgpa[j] = tempCgpa;
+					rollNo[j] = tempRollNo;
+				}
+				else if (cgpa[i] == cgpa[j] && rollNo[i]>rollNo[j])
+				{
+					tempName = name[i];
+					tempCgpa = cgpa[i];
+					tempRollNo = rollNo[i];
+
+					name[i] = name[j];
+					cgpa[i] = cgpa[j];
+					rollNo[i] = rollNo[j];
+
+					name[j] = tempName;
+					cgpa[j] = tempCgpa;
+					rollNo[j] = tempRollNo;
+				}
+			}
+		}
+	}
+};
+
+int main()
+{
+	StudentMinHeap SMH1(12);
+	SMH1.insert("Ahmer", 3.0, 55);
+	SMH1.insert("Danish", 3, 32);
+	SMH1.insert("Awais", 3, 46);
+	SMH1.insert("Hamza", 3.0, 26);
+	SMH1.insert("Saad", 3, 49);
+	SMH1.insert("Bilal", 3.0, 43);
+	SMH1.insert("Allah Wasaya", 3, 31);
+
+	SMH1.printHeap();
+	SMH1.extraxtLeast();
+
+	SMH1.printHeap();
+	SMH1.extraxtLeast();
+
+	SMH1.printHeap();
+	SMH1.displayStudentList();
+	cout << '\n';
+	return 0;
+}

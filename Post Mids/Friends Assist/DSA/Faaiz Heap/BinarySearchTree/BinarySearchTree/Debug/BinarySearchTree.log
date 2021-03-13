@@ -1,0 +1,3 @@
+﻿  Source.cpp
+c:\users\faaiz sultan\source\repos\binarysearchtree\binarysearchtree\bst.h(181): warning C4715: 'BST<int>::insertHelper': not all control paths return a value
+  BinarySearchTree.vcxproj -> C:\Users\Faaiz Sultan\source\repos\BinarySearchTree\Debug\BinarySearchTree.exe

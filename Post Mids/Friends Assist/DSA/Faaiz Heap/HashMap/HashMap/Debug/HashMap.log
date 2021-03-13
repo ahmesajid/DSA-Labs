@@ -1,0 +1,5 @@
+﻿  Source.cpp
+c:\users\faaiz sultan\source\repos\hashmap\hashmap\hashmap.h(101): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\faaiz sultan\source\repos\hashmap\hashmap\hashmap.h(108): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\faaiz sultan\source\repos\hashmap\hashmap\hashmap.h(230): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  HashMap.vcxproj -> C:\Users\Faaiz Sultan\source\repos\HashMap\Debug\HashMap.exe

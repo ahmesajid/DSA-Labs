@@ -1,0 +1,8 @@
+﻿  AVLTree.cpp
+  Source.cpp
+F:\4th Semester Data\Data Structures and Algorithams\Practice Projects\Binary Tree\Binary Tree\Source.cpp(82): warning C4101: 'temp': unreferenced local variable
+  Generating Code...
+AVLTree.obj : error LNK2019: unresolved external symbol "private: bool __cdecl AVLTree::searchNode(struct BNode *,int)" (?searchNode@AVLTree@@AEAA_NPEAUBNode@@H@Z) referenced in function "public: bool __cdecl AVLTree::search(int)" (?search@AVLTree@@QEAA_NH@Z)
+AVLTree.obj : error LNK2019: unresolved external symbol "private: void __cdecl AVLTree::displayBST(struct BNode *)" (?displayBST@AVLTree@@AEAAXPEAUBNode@@@Z) referenced in function "public: void __cdecl AVLTree::display(void)" (?display@AVLTree@@QEAAXXZ)
+AVLTree.obj : error LNK2019: unresolved external symbol "private: struct BNode * __cdecl AVLTree::deleteN(struct BNode *,int)" (?deleteN@AVLTree@@AEAAPEAUBNode@@PEAU2@H@Z) referenced in function "public: void __cdecl AVLTree::deleteNode(int)" (?deleteNode@AVLTree@@QEAAXH@Z)
+F:\4th Semester Data\Data Structures and Algorithams\Practice Projects\Binary Tree\x64\Debug\Binary Tree.exe : fatal error LNK1120: 3 unresolved externals
