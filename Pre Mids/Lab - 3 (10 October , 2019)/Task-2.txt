@@ -1,0 +1,159 @@
+
+//
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//class Stack {
+//	char*arr;
+//	int size;
+//	int top;
+//
+//public:
+//	Stack(int size = 0)
+//	{
+//		this->size = size;
+//		arr = new char[size];
+//		top = -1;
+//	}
+//
+//	~Stack()
+//	{
+//		if (!isEmpty())
+//		{
+//			delete[] arr;
+//			arr = nullptr;
+//			top = -1;
+//			size = 0;
+//		}
+//		cout << "Destructor called - Stack 1\n";
+//	}
+//	int getSize()
+//	{
+//		int i = 0;
+//		while (arr[i] != '\0')
+//			i++;
+//		return i;
+//	}
+//	void push(int element)
+//	{
+//		if (!isFull())
+//		{
+//			top++;
+//			arr[top] = element;
+//		}
+//		else
+//		{
+//			cout << "Stack is full!";
+//		}
+//	}
+//
+//	Stack(const Stack&S)
+//	{
+//		if (size >= S.size)
+//		{
+//			for (int i = 0; i < size; i++)
+//			{
+//				arr[i] = S.arr[i];
+//			}
+//			cout << "Data copied sucessfully!";
+//		}
+//		else
+//		{
+//			cout << "Stack size not compatible!";
+//		}
+//	}
+//
+//	char pop()
+//	{
+//		return arr[top--];
+//	}
+//
+//	char getTop()
+//	{
+//		if (!isEmpty())
+//		{
+//			return arr[top];
+//		}
+//		return 0;
+//	}
+//	bool isFull()
+//	{
+//		return size == top + 1;
+//	}
+//	bool isEmpty()
+//	{
+//		return top == -1;
+//	}
+//};
+//
+//int main()
+//{
+//	string getUserString;
+//	cout << "Enter string to checck palindrome : ";
+//	getline(cin , getUserString);
+//
+//	//STACK-1 GETS ONLY ALPHABET CHARACTERS
+//	Stack S1(200);
+//
+//	//STACK-2 GETS REVERSE OF THEM
+//	Stack S2(200);
+//
+//	//TEMP STACK
+//	Stack S3(200);
+//
+//	//GET LENGTH
+//	int lengthOfUserEnteredString = 0;
+//	while (getUserString[lengthOfUserEnteredString] != '\0')
+//	{
+//		lengthOfUserEnteredString++;
+//	}
+//	cout << endl;
+//
+//	int alphabetsCounter = 0;
+//	//PUSHING ALPHABETS ON STACK ONE 
+//	for (int i = 0; i < lengthOfUserEnteredString; i++)
+//	{
+//		int temp = getUserString[i];
+//		if ((temp > 64 && temp < 91) || (temp > 96 && temp < 123) || (temp>47 && temp<58))
+//		{
+//			if (temp > 64 && temp < 91)
+//			{
+//				getUserString[i] = char(int(getUserString[i]) + 32);
+//			}
+//			S1.push(getUserString[i]);
+//			alphabetsCounter++;
+//		}
+//	}
+//	S3 = S1;
+//
+//
+//	for (int i = 0; i < alphabetsCounter; i++)
+//	{
+//		S2.push(S3.pop());
+//	}
+//
+//	/*for (int i = 0; i < alphabetsCounter; i++)
+//	{
+//		cout << S1.pop();
+//	}
+//	cout << '\n';
+//	for (int i = 0; i < alphabetsCounter; i++)
+//	{
+//		cout << S2.pop();
+//	}*/
+//
+//
+//	//COMPARING TWO STRINGS S-1 AND S-2
+//	for (int i = 0; i < alphabetsCounter; i++)
+//	{
+//		if (S1.pop() != S2.pop())
+//		{
+//			cout << "Not-Palindrome!\n";
+//			exit(0);
+//		}
+//	}
+//	cout << "Palindrome!\n";
+//
+//	return 0;
+//}

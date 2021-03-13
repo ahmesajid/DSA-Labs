@@ -1,0 +1,44 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+int main()
+{
+
+	char getWordFromFile[50], wordToFind[50]; //We extract word that is why getwordfromfile is in char
+	string fileName = "xyz"; 	//Filename may be space seperated
+	int wordCounter = 0;
+	bool isFileFound = true;
+
+	cout << "Enter file-name :";
+	getline(cin, fileName);
+
+	ifstream readFile(fileName);
+	if (!readFile.is_open())
+	{
+		cout << "File not found\n";
+		isFileFound = !isFileFound;
+	}
+
+	
+	if (isFileFound)
+	{
+		cout << "Enter word : ";
+		cin >> wordToFind;
+
+		while (!readFile.eof())
+		{
+			readFile >> getWordFromFile;
+			if (!strcmp(getWordFromFile, wordToFind))
+			{
+				wordCounter++;
+			}
+		}
+		cout << wordToFind << " occured " << wordCounter << " times .";
+	}
+
+
+
+	cout << '\n';
+	return 0;
+}

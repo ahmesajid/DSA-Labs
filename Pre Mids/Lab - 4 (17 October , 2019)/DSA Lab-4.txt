@@ -1,0 +1,284 @@
+#include<iostream>
+using namespace std;
+
+class Queue
+{
+	float*arr;
+	int front = -1;
+	int rear = -1;
+	int size;
+	int count = 0;
+	int tempRear;
+
+
+public:
+	Queue(int size = 0)
+	{
+		this->size = size;
+		arr = new float[size];
+	}
+
+	int isFull()
+	{
+
+		return count == size;
+	}
+	int isEmpty()
+	{
+		return count == 0;
+	}
+	void enQueue(float element)
+	{
+		if (!isFull())
+		{
+			arr[++rear] = element;
+			count++;
+		}
+		else
+		{
+			cout << "Queue is full!\n";
+		}
+	}
+	float deQueue()
+	{
+		float temp = arr[0];
+
+;		if (!isEmpty())
+		{
+			for (int i = 0; i < count; i++)
+			{
+				arr[i] = arr[i + 1];
+			}
+			rear--;
+			count--;
+		}
+        return temp;
+	}
+
+
+	int getCount()
+	{
+		return count;
+	}
+	void showStructure()
+	{
+		if (!isEmpty())
+		{
+
+			for (int i = 0; i < count; i++)
+			{
+				if (i==0 && i==count-1)
+					cout << "front->" << arr[i] << "<-rear";
+				else if (i==0)
+					cout << "front->"<<arr[i]<<'\n';
+				else if(i==count-1)
+					cout << "       "<<arr[i]<<"<-rear";
+				else
+					cout << "       " << arr[i]<<'\n';
+			}
+			cout << "\n\n";
+		}
+		else
+		{
+			cout << "Queue is empty!\n";
+		}
+	}
+};
+
+int main()
+{
+	Queue Q1(10);
+	Q1.enQueue(1);
+	Q1.enQueue(2);
+	Q1.enQueue(3);
+	Q1.enQueue(4);
+	
+	Q1.showStructure();
+
+	Q1.enQueue(5.0);
+	Q1.enQueue(6.5);
+	Q1.enQueue(7.0);
+	Q1.enQueue(8);
+
+	Q1.showStructure();
+
+	Q1.deQueue();
+	Q1.deQueue();
+	Q1.deQueue();
+	Q1.deQueue();
+	Q1.deQueue();
+	Q1.deQueue();
+	Q1.deQueue();
+
+	Q1.showStructure();
+
+	Q1.deQueue();
+
+	Q1.showStructure();
+
+	cout << '\n';
+	return 0;
+}
+//
+//#include<iostream>
+//using namespace std;
+//
+//class Dequeue
+//{
+//	float*arr;
+//	int front = -1, rear = -1;
+//	int size;
+//
+//public:
+//	Dequeue(int size = 0)
+//	{
+//		this->size = size;
+//		arr = new float[size];
+//	}
+//	bool isEmpty()
+//	{
+//		int i = 0;
+//		while (arr[i] != '\0')
+//		{
+//			i++;
+//		}
+//		if (i == 0)
+//			return 0;
+//		else
+//			return 1;
+//
+//	}
+//	bool isFull()
+//	{
+//
+//		return ((front == -1) && (rear == size - 1));
+//	}
+//
+//	void addFront(int element)
+//	{
+//		if (!isFull())
+//		{
+//			if (isEmpty())
+//			{
+//				front++;
+//				rear++;
+//				arr[front] = element;
+//			}
+//			else if (front>0)
+//			{
+//				front = front - 1;
+//				arr[front] = element;
+//			}
+//			else 
+//			{
+//				cout << "Cant add front - front occupied!\n";
+//			}
+//		}
+//		else
+//		{
+//			cout << "Queue is full - cant add front!\n";
+//		}
+//	}
+//	void addRear(int element)
+//	{
+//		if (!isFull())
+//		{
+//			rear = rear + 1;
+//			arr[rear] = element;
+//		}
+//		else
+//		{
+//			cout << "Cant add rear!\n";
+//		}
+//	}
+//	void removeFront()
+//	{
+//		if (!isEmpty())
+//		{
+//			arr[front] = '\0';
+//			front++;
+//		}
+//		else 
+//		{
+//			cout << "Queue is empty!\n";
+//		}
+//	}
+//	void removeRear()
+//	{
+//		if (!isEmpty())
+//		{
+//			arr[rear] = '\0';
+//			front--;
+//		}
+//		else
+//		{
+//			cout << "Queue is empty!\n";
+//		}
+//	}
+//	void display()
+//	{
+// 		for (int i = front; i <=rear; i++)
+//		{
+//			cout << arr[i] << ' ';
+//		}
+//		cout << '\n';
+//	}
+//};
+//int main()
+//{
+//	Dequeue Q1(20);
+//	int option=1;
+//	int value;
+//
+//	do 
+//	{
+//		cout << "1. Add front\n";
+//		cout << "2. Add rear\n";
+//		cout << "3. Del front\n";
+//		cout << "4. Del rear\n";
+//		cout << "5. Display\n";
+//		cout << "choice : ";
+//		cin >> option;
+//	
+//		switch (option)
+//		{
+//		case 1:
+//		{
+//			cout << "VALUE : ";
+//			cin >> value;
+//			Q1.addFront(value);
+//			break;
+//		}
+//		case 2:
+//		{
+//			cout << "VALUE : ";
+//			cin >> value;
+//			Q1.addRear(value);
+//
+//			break;
+//		}
+//		case 3:
+//		{
+//			Q1.removeFront();
+//			break;
+//		}
+//		case 4:
+//		{
+//			Q1.removeRear();
+//			break;
+//		}
+//		case 5:
+//		{
+//			Q1.display();
+//			break;
+//		}
+//		}
+//
+//	} while (option!=0);
+//
+//
+//
+//	cout << '\n';
+//	return 0;
+//
+//}

@@ -1,0 +1,34 @@
+#include<iostream>
+using namespace std;
+
+void printND(int dimension)
+{
+	int iCounter = 1; //icounter is equal to loop counter
+
+	while (iCounter <= dimension)
+	{
+		cout << 'i' << iCounter;
+		int dCounter = iCounter + 1;
+		while (dCounter <= dimension)
+		{
+			cout << 'D' << dCounter;
+			dCounter++;
+		}
+		if (iCounter < dimension)
+		{
+			cout<<" + ";
+		}
+		iCounter++;
+	}
+}
+int main()
+{
+	int getDimensions = 0;
+	cout << "Dimensions : ";
+	cin >> getDimensions;
+	printND(getDimensions);
+
+	cout << "\n";
+	return 0;
+}
+

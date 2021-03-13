@@ -1,0 +1,322 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class StackOne {
+	int*arr;
+	int size;
+	int top;
+
+public:
+	StackOne(int size=0)
+	{
+		this->size=size;
+		arr = new int[size];
+		top = -1;
+	}
+
+	~StackOne()
+	{
+		if (!isEmpty())
+		{
+			delete[] arr;
+			arr = nullptr;
+			top = -1;
+			size = 0;
+		}
+		cout << "Destructor called - Stack 1\n";
+	}
+
+	void push(int element)
+	{
+		if (!isFull())
+		{
+			top++;
+			arr[top] = element;
+		}
+		else
+		{
+			cout << "Stack is full!";
+		}
+	}
+
+	StackOne(const StackOne&S)
+	{
+		if (size >= S.size)
+		{
+			for (int i = 0; i < size; i++)
+			{
+				arr[i] = S.arr[i];
+			}
+			cout << "Data copied sucessfully!";
+		}
+		else
+		{
+			cout << "Stack size not compatible!";
+		}
+	}
+
+	int pop()
+	{
+		return arr[top--];
+	}
+
+	int getTop()
+	{
+		if (!isEmpty())
+		{
+			return arr[top];
+		}
+		return 0;
+	}
+	bool isFull()
+	{
+		return size == top + 1;
+	}
+	bool isEmpty()
+	{
+		return top == -1;
+	}
+};
+class StackTwo {
+	int*arr;
+	int size;
+	int top;
+
+
+public:
+	StackTwo(int size = 0)
+	{
+		this->size=size;
+		arr = new int[size];
+		top = -1;
+	}
+
+	~StackTwo()
+	{
+		if (!isEmpty())
+		{
+			delete[] arr;
+			arr = nullptr;
+			top = -1;
+			size = 0;
+		}
+		cout << "Destructor called - Stack 2\n";
+	}
+
+	void push(int element)
+	{
+		if (!isFull())
+		{
+			top++;
+			arr[top] = element;
+		}
+		else
+		{
+			cout << "Stack is full!";
+		}
+	}
+
+	StackTwo(const StackTwo&S)
+	{
+		if (size >= S.size)
+		{
+			for (int i = 0; i < size; i++)
+			{
+				arr[i] = S.arr[i];
+			}
+			cout << "Data copied sucessfully!";
+		}
+		else
+		{
+			cout << "Stack size not compatible!";
+		}
+	}
+
+	int pop()
+	{
+		return arr[top--];
+	}
+
+	int getTop()
+	{
+		if (!isEmpty())
+		{
+			return arr[top];
+		}
+		return 0;
+	}
+	bool isFull()
+	{
+		return size == top + 1;
+	}
+	bool isEmpty()
+	{
+		return top == -1;
+	}
+};
+class StackThree {
+	int*arr;
+	int size;
+	int top;
+
+public:
+	StackThree(int size = 0)
+	{
+		this->size=size;
+		arr = new int[size];
+		top = -1;
+	}
+
+	~StackThree()
+	{
+		if (!isEmpty())
+		{
+			delete[] arr;
+			arr = nullptr;
+			top = -1;
+			size = 0;
+			cout << "Destructor called - Stack 3\n";
+		}
+	}
+
+	void push(int element)
+	{
+		if (!isFull())
+		{
+			top++;
+			arr[top] = element;
+		}
+		else
+		{
+			cout << "Stack is full!";
+		}
+	}
+
+	StackThree(const StackThree&S)
+	{
+		if (size >= S.size)
+		{
+			for (int i = 0; i < size; i++)
+			{
+				arr[i] = S.arr[i];
+			}
+			cout << "Data copied sucessfully!";
+		}
+		else
+		{
+			cout << "Stack size not compatible!";
+		}
+	}
+
+	int pop()
+	{
+		return arr[top--];
+	}
+
+	int getTop()
+	{
+		if (!isEmpty())
+		{
+			return arr[top];
+		}
+		return 0;
+	}
+	bool isFull()
+	{
+		return size == top + 1;
+	}
+	bool isEmpty()
+	{
+		return top == -1;
+	}
+};
+int getStringLength(string str)
+{
+	int i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return i;
+}
+int main()
+{
+	StackOne S1(50); //Will operate on first string , will get filtered numeric array from char array.
+	StackTwo S2(50); //Will operate on second string , will get filtered numeric array from char array.
+	StackThree S3(50); //Will store sum of both strings.
+
+	string str1 = { "abc" }, str2 = {"xyz"}; //Initializing both strings to some sub-strings.
+
+	cout << "Enter String One : ";
+	cin >> str1;
+
+	cout << "Enter String Two : ";
+	cin >> str2;
+
+	int strlenOne = getStringLength(str1); //This function returns string length of first string.
+	int strlenTwo = getStringLength(str2); //This function returns string length of second string.
+
+	//Convert numeric character to int and push to stack 1 which is S1.
+	for (int i = 0; i < strlenOne; i++)
+	{
+		S1.push(int(str1[i]) - 48);
+	}
+
+	//Convert numeric character to int and push to stack 2 which is S1.
+	for (int i = 0; i < strlenTwo; i++)
+	{
+		S2.push(int(str2[i]) - 48);
+	}
+
+
+	int getFromStackOne=0, getFromStackTwo=0, carry = 0,putOnStackThree=0; 
+	while (!S1.isEmpty() || !S2.isEmpty()) //This loop runs until both of the stacks will go empty.
+	{
+		if (!S1.isEmpty())
+		{
+			getFromStackOne = S1.pop();
+		}
+		else
+		{
+			getFromStackOne = 0;
+		}
+
+		if (!S2.isEmpty())
+		{
+			getFromStackTwo = S2.pop();
+		}
+		else
+		{
+			getFromStackTwo = 0;
+		}
+
+		putOnStackThree = (getFromStackOne + getFromStackTwo + carry) % 10;
+		carry = (getFromStackOne + getFromStackTwo + carry) / 10;
+		S3.push(putOnStackThree);
+
+	}
+
+	int newSizeOfStackThree = 0;
+	if (carry != 0) //If there is carry
+	{
+		S3.push(carry);
+		(strlenOne > strlenTwo) ? newSizeOfStackThree = strlenOne + 1 : newSizeOfStackThree = strlenTwo + 1;
+
+	}
+	else //If there is no carry
+	{
+		(strlenOne > strlenTwo) ? newSizeOfStackThree = strlenOne : newSizeOfStackThree = strlenTwo; //Ternary operator 
+	}
+
+	//Displaying sum stored in stack 3 name S3.
+	cout << "Sum of both strings : ";
+	for (int i = 0; i < newSizeOfStackThree; i++)
+	{
+		cout << S3.pop();
+	}
+
+
+	cout << '\n';
+	return 0;
+}

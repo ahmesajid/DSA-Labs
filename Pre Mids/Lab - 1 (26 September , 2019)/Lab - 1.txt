@@ -1,0 +1,201 @@
+#include<iostream>
+using namespace std;
+
+//
+//int**createPascalTriangle(int n)
+//{
+//	int ** triangle = new int*[n];
+//	for (int i = 0; i < n; i++)
+//		triangle[i] = new int[n];
+//
+//	for (int i = 0; i < n; i++)
+//	{
+//		int limit = i;
+//
+//		for (int j = 0; j <=limit; j++)
+//		{
+//			if (j == 0 || j == limit)
+//				triangle[i][j] = 1;
+//			else
+//			{
+//				triangle[i][j] = triangle[i-1][j] + triangle[i-1][j-1];
+//			}
+//
+//		}
+//	}
+//
+//
+//	return triangle;
+//
+//}
+//
+//void displayPascalTriangle(int**triangle, int size)
+//{
+//	for (int i = 0; i < size; i++)
+//	{
+//		int limit = i;
+//
+//		for (int j = 0; j <= limit; j++)
+//			cout << triangle[i][j] << ' ';
+//		cout << '\n';
+//
+//	}
+//}
+//
+//void deallocatePascalTriangle(int**triangle, int size)
+//{
+//	for (int i = 0;i < size; i++)
+//	{
+//		delete triangle[i];
+//	}
+//	delete triangle;
+//	triangle = NULL;
+//}
+//
+//
+//int main()
+//{
+//	int size = 0;
+//	cout << "Size : ";
+//	cin >> size;
+//
+//	int**triangle;
+//	triangle = createPascalTriangle(size);
+//
+//	displayPascalTriangle(triangle, size);
+//
+//	deallocatePascalTriangle(triangle, size);
+//
+//
+//
+//	cout << "\n";
+//	return 0;
+//}
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct Term {
+	int exp;
+	int coef;
+};
+class Polynomial {
+	Term * tAarray;
+	int numOfTerms;
+
+public:
+	Polynomial()
+	{
+		numOfTerms = 0;
+	    tAarray = new Term[numOfTerms];
+		tAarray->exp = 0;
+		tAarray->coef = 0;
+	}
+	Polynomial(int _numOfTerms)
+	{
+		numOfTerms = _numOfTerms;
+		tAarray = new Term[numOfTerms];
+		takeInput(numOfTerms);
+	
+	}
+	Polynomial(const Polynomial&Orignal)
+	{
+		for (int i = 0; i < Orignal.numOfTerms; i++)
+		{
+			tAarray[i].exp = Orignal.tAarray[i].exp;
+			tAarray[i].coef = Orignal.tAarray[i].coef;
+		}
+	
+	}
+	
+	void display()
+	{
+		for (int i = 0; i < numOfTerms; i++)
+		{
+			cout<<tAarray[i].exp <<"x"<< tAarray[i].coef<<' ';
+		}
+	}
+	void takeInput(int size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			cout << "P" << i + 1<<'\n';
+			cout << "Exp : ";
+			cin >> tAarray[i].exp;
+			cout << "Coef : ";
+			cin >> tAarray[i].coef;
+			cout << "\n";
+		}
+	}
+	void sorting(const Polynomial&P)
+	{
+		cout << "Sorting ascendingly..\n";
+
+		for (int i = 0; i < P.numOfTerms-1; i++)
+		{
+			int smallest=i;
+			for (int j = i; j < P.numOfTerms-1; j++)
+			{
+				if (P.tAarray[smallest].exp >= P.tAarray[j + 1].exp)
+					smallest = j + 1;
+			}
+
+			int tempExp=0, tempCoef = 0;
+			tempExp = P.tAarray[i].exp;
+			tempCoef = P.tAarray[i].coef;
+		
+			P.tAarray[i].exp= P.tAarray[smallest].exp;
+			P.tAarray[i].coef = P.tAarray[smallest].coef;
+
+			P.tAarray[smallest].exp = tempExp;
+			P.tAarray[smallest].coef = tempCoef;
+
+		}
+
+		cout << "Sort comleted!!\n";
+	}
+	void operator = (const Polynomial &P)
+	{
+		for (int i = 0; i < P.numOfTerms; i++)
+		{
+			tAarray[i].exp = P.tAarray[i].exp;
+			tAarray[i].coef = P.tAarray[i].coef;
+		}
+	}
+	~Polynomial()
+	{
+		delete tAarray;
+		tAarray = NULL;
+	}
+};
+
+
+
+int main()
+{
+	
+	Polynomial P1(2) , P2(2);
+	P1.sorting(P1);
+	P2 = P1;
+	P1.display();
+	P2.display();
+
+
+
+	cout << "\n";
+	return 0;
+}

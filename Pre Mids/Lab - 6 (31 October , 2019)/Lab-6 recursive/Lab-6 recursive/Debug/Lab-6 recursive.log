@@ -1,0 +1,3 @@
+﻿  Source.cpp
+c:\users\dell\desktop\lab-6 recursive\lab-6 recursive\source.cpp(113): warning C4715: 'isPrime': not all control paths return a value
+  Lab-6 recursive.vcxproj -> C:\Users\dell\Desktop\Lab-6 recursive\Debug\Lab-6 recursive.exe

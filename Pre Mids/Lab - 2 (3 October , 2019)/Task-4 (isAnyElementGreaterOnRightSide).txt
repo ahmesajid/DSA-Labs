@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	const int size = 10;
+	int arr[size] = { 1,6,-3,7,44,-22,19,44,-33,41 }; 
+	//Hard coded values given to an array of size 10 non - constant. Change size and increment/decrement array elemnts acccordingly
+
+	for (int i = 0; i < size; i++)
+	{
+		bool isAnyIntegerGreaterFound = 0;
+		for (int j = i; j < size; j++)
+		{
+			if (arr[j + 1] > arr[i])
+			{
+				cout << arr[j + 1] << " is greater than " << arr[i] << "\n";
+				isAnyIntegerGreaterFound = 1;
+				break;
+			}
+			// -1 is for those elements which have no element greater in the list on their right side
+		}
+		if (!isAnyIntegerGreaterFound)
+		{
+			cout << -1 << " for " << arr[i] << "\n";
+		}
+	}
+
+
+	cout << '\n';
+	return 0;
+}

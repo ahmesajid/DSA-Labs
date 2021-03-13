@@ -1,0 +1,115 @@
+#include<iostream>
+using namespace std;
+template <typename T>
+class Matrix
+{
+	T*arr;
+	int rows,cols;
+
+public:
+	Matrix(int rows=5 ,int cols=5)
+	{
+		//BY DEFAULT SIZE CREATED IS 5X5
+		arr = new T[rows*cols];
+		this->rows = rows;
+		this->cols = cols;
+	}
+	Matrix(const Matrix&M)
+	{
+		if (this->rows*this->cols >= M.rows*M.cols)
+		{
+			for (int i = 0; i < M.rows*M.cols; i++)
+			{
+				arr[i] = M.arr[i];
+			}
+			cout << "Matrix copied successfully!\n";
+		}
+		else
+		{
+			cout << "Matrices not compatible to copy!\n";
+		}
+	}
+	void initializeElems()
+	{
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < cols; j++)
+			{
+				arr[(i*cols) + j] = 0.0;
+			}
+		}
+	}
+	void printMatrix()
+	{
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < cols; j++)
+			{
+				cout << arr[(i*cols) + j]<<' ';
+			}
+			cout << '\n';
+		}
+	}
+	void setElement(int i, int j, T val)
+	{
+		arr[(i*cols) + j] = val;
+	}
+	T getElement(int i,int j)
+	{
+		return arr[(i*cols) + j];
+	}
+	~Matrix()
+	{
+		delete[] arr;
+		arr = nullptr;
+	}
+};
+
+
+
+
+int main()
+{
+	Matrix<int> myMatrix(4,4);
+	bool endBit = false;
+	myMatrix.initializeElems();
+
+
+	do
+	{
+		int option;
+		cout << "1-> To exit\n";
+		cout << "2-> Add element\n";
+		cout << "3-> Display Matrix \n";
+		cin >> option;
+
+
+		switch (option)
+		{
+		case 1:
+		{
+			endBit = 1;
+			break;
+		}
+		case 2:
+		{
+
+			int i, j, element;
+			cout << "ENTER i , j and element: ";
+			cin >> i >> j >> element;
+			myMatrix.setElement(i, j, element);
+			break;
+		}
+		case 3:
+		{
+			myMatrix.printMatrix();
+			break;
+		}
+		}
+	} while (!endBit);
+
+
+
+	cout << '\n';
+	return 0;
+}

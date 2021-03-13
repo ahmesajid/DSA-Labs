@@ -1,0 +1,36 @@
+
+int upperRightTriangle(int i, int j,int dimension)
+{
+	return (  ((i*dimension)+j) - ( (i*(i+1))/2 )  );
+}
+int upperLeftTriangle(int i, int j, int dimension)
+{
+	return (((i*dimension) + j) - ((i*(i - 1)) / 2));
+}
+int lowerLeftTriangle(int i, int j,int dimension)
+{
+	return (((i*(i + 1)) / 2) + j);
+}
+int lowerRightTriangle(int i, int j, int dimension)
+{
+	return (  ((dimension*(dimension + 1)) / 2) + (i + 1 - dimension - j));
+}
+
+int main()
+{
+	int dimension,i,j;
+	cout << "D : ";
+	cin >> dimension;
+	cout << "i : ";
+	cin >> i;
+	cout << "j : ";
+	cin >> j;
+
+	int arrSize = (dimension*(dimension + 1)) / 2;
+	int*arr = new int[arrSize];
+	int index = lowerLeftTriangle(i,j,dimension);
+	arr[index] = index; 
+
+	cout << '\n';
+	return 0;
+}
